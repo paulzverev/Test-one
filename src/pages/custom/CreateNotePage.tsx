@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as DatabaseIcon } from './icons/database.svg'
 
 export function CreateNotePage() {
   const [noteText, setNoteText] = useState('');
@@ -16,14 +17,14 @@ export function CreateNotePage() {
       display: 'flex',
       flexDirection: 'column'
     }}>
-      
+
       {/* Шапка */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         marginBottom: '30px'
       }}>
-        <Link 
+        <Link
           to="/"
           style={{
             color: 'white',
@@ -67,15 +68,29 @@ export function CreateNotePage() {
       <button style={{
         background: '#ffffff',
         border: 'none',
-        padding: '16px',
+        padding: '16px 24px 16px 20px', // Больше отступов слева для иконки
         borderRadius: '25px',
         color: '#000000',
         fontSize: '1.1rem',
         fontWeight: 600,
         cursor: 'pointer',
-        transition: 'all 0.3s ease'
+        transition: 'all 0.3s ease',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '10px', // Отступ между иконкой и текстом
+        lineHeight: '1', // Убираем лишние отступы у текста
+        height: '48px' // Фиксированная высота для выравнивания
       }}>
-        💾 Сохранить заметку
+        <DatabaseIcon
+          style={{
+            width: '24px',
+            height: '24px',
+            fill: '#000000',
+            flexShrink: 0
+          }}
+        />
+        Сохранить заметку
       </button>
 
     </div>
