@@ -1,43 +1,47 @@
-import { Section, Cell, Image, List } from '@telegram-apps/telegram-ui';
-import type { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { Card, Cell, Title, Text } from '@telegram-apps/telegram-ui';
 
-import { Link } from '@/components/Link/Link.tsx';
-import { Page } from '@/components/Page.tsx';
+import { routes } from '@/navigation/routes.tsx';
 
-import tonSvg from './ton.svg';
-
-export const IndexPage: FC = () => {
+export function IndexPage() {
   return (
-    <Page back={false}>
-      <List>
-        <Section
-          header="Features"
-          footer="You can use these pages to learn more about features, provided by Telegram Mini Apps and other useful projects"
+    <>
+      <Title>Добро пожаловать!</Title>
+      <Card>
+        <Text>
+          Это мое первое мини-приложение в Telegram! 🚀
+        </Text>
+        <Text>
+          Здесь я буду экспериментировать и создавать крутые фичи!
+        </Text>
+      </Card>
+
+      {/* Мои эксперименты */}
+      <Title level="2">Мои эксперименты</Title>
+      <Card>
+        <Cell
+          Component={Link}
+          href="/my-feature" // ← Используем href вместо to
+          description="Моя первая фича"
         >
-          <Link to="/ton-connect">
-            <Cell
-              before={<Image src={tonSvg} style={{ backgroundColor: '#007AFF' }}/>}
-              subtitle="Connect your TON wallet"
-            >
-              TON Connect
-            </Cell>
-          </Link>
-        </Section>
-        <Section
-          header="Application Launch Data"
-          footer="These pages help developer to learn more about current launch information"
-        >
-          <Link to="/init-data">
-            <Cell subtitle="User data, chat information, technical data">Init Data</Cell>
-          </Link>
-          <Link to="/launch-params">
-            <Cell subtitle="Platform identifier, Mini Apps version, etc.">Launch Parameters</Cell>
-          </Link>
-          <Link to="/theme-params">
-            <Cell subtitle="Telegram application palette information">Theme Parameters</Cell>
-          </Link>
-        </Section>
-      </List>
-    </Page>
+          🎨 Моя фича
+        </Cell>
+      </Card>
+
+      <Title level="2">Примеры из шаблона</Title>
+      {routes
+        .filter((route) => route.path !== '/')
+        .map((route, index) => (
+          <Cell
+            key={index}
+            Component={Link}
+            href={route.path} // ← Используем href вместо to
+            description={route.title}
+            before={route.icon}
+          >
+            {route.title}
+          </Cell>
+        ))}
+    </>
   );
-};
+}
