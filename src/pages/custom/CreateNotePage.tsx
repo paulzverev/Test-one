@@ -1,8 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export function CreateNotePage() {
   const [noteText, setNoteText] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Задержка для плавного появления после монтирования компонента
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 50);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div style={{
@@ -14,14 +24,20 @@ export function CreateNotePage() {
       color: 'white',
       padding: '20px',
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+      transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
     }}>
 
       {/* Шапка */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        marginBottom: '30px'
+        marginBottom: '30px',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+        transition: 'opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s'
       }}>
         <Link
           to="/"
@@ -66,7 +82,10 @@ export function CreateNotePage() {
           resize: 'none',
           outline: 'none',
           marginBottom: '20px',
-          fontFamily: '"Inter", sans-serif'
+          fontFamily: '"Inter", sans-serif',
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
+          transition: 'opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s'
         }}
         rows={10}
       />
@@ -88,8 +107,10 @@ export function CreateNotePage() {
         lineHeight: '1',
         marginBottom: '25px',
         boxShadow: '0 4px 15px rgba(255, 255, 255, 0.2)',
-        transition: 'all 0.3s ease',
-        height: '52px'
+        transition: 'all 0.3s ease, opacity 0.5s ease-out 0.3s, transform 0.5s ease-out 0.3s',
+        height: '52px',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)'
       }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -103,9 +124,8 @@ export function CreateNotePage() {
           strokeLinejoin="round"
           style={{
             flexShrink: 0,
-            // УБРАЛ marginBottom - он опускал иконку!
             position: 'relative',
-            top: '0.5px' // ← поднимаем иконку на полпикселя
+            top: '0.5px'
           }}
         >
           <path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
@@ -115,7 +135,7 @@ export function CreateNotePage() {
 
         <span style={{
           position: 'relative',
-          top: '0.5px' // ← поднимаем текст тоже на полпикселя
+          top: '0.5px'
         }}>
           Сохранить заметку
         </span>
