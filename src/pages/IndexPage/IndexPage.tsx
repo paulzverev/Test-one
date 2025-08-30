@@ -21,6 +21,8 @@ export function IndexPage() {
   return (
     <div style={{
       minHeight: '100vh',
+      height: '100vh', // Фиксируем высоту
+      overflow: 'hidden', // Убираем прокрутку
       background: '#000000',
       fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
       color: 'white',
@@ -30,8 +32,7 @@ export function IndexPage() {
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
-      position: 'relative',
-      overflow: 'hidden'
+      position: 'relative'
     }}>
       
       {/* Анимированные частицы */}
@@ -60,61 +61,62 @@ export function IndexPage() {
         transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
         transition: 'all 0.8s ease-out',
         maxWidth: '400px',
-        width: '100%'
+        width: '100%',
+        marginBottom: 'env(safe-area-inset-bottom, 20px)' // Безопасные отступы
       }}>
         
-        {/* Минималистичный логотип овсяного зернышка */}
+        {/* Вертикальный логотип кофейного зернышка */}
         <div style={{
-          width: '70px',
-          height: '70px',
-          margin: '0 auto 25px',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative'
+          margin: '0 auto 25px',
+          gap: '15px'
         }}>
-          {/* Контур зернышка */}
+          {/* Кофейное зернышко */}
           <div style={{
-            width: '45px',
-            height: '25px',
-            borderRadius: '50%',
-            border: '3px solid white',
-            transform: 'rotate(0deg)',
-            position: 'relative'
+            width: '40px',
+            height: '30px',
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}>
-            {/* Линии внутри зернышка */}
+            {/* Основная форма зернышка */}
             <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '25%',
-              width: '15px',
-              height: '2px',
-              background: 'white',
-              transform: 'rotate(45deg) translateY(-50%)'
-            }} />
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '12px',
-              height: '2px',
-              background: 'white',
-              transform: 'rotate(-45deg) translateY(-50%) translateX(-50%)'
-            }} />
+              width: '35px',
+              height: '25px',
+              borderRadius: '50%',
+              border: '2.5px solid white',
+              position: 'relative',
+              transform: 'rotate(0deg)'
+            }}>
+              {/* Изгиб в центре как у кофейного зерна */}
+              <div style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                width: '18px',
+                height: '2px',
+                background: 'white',
+                transform: 'translate(-50%, -50%) rotate(45deg)',
+                borderRadius: '1px'
+              }} />
+            </div>
           </div>
-        </div>
 
-        {/* Название компании */}
-        <h1 style={{
-          fontSize: 'clamp(2.2rem, 8vw, 3.5rem)',
-          fontWeight: 700,
-          margin: '0 0 12px 0',
-          color: '#ffffff',
-          letterSpacing: '-0.02em',
-          lineHeight: 1.1
-        }}>
-          OatNote
-        </h1>
+          {/* Название компании */}
+          <h1 style={{
+            fontSize: 'clamp(2.2rem, 8vw, 3.5rem)',
+            fontWeight: 700,
+            margin: '0',
+            color: '#ffffff',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1
+          }}>
+            OatNote
+          </h1>
+        </div>
 
         <p style={{
           fontSize: 'clamp(0.95rem, 4vw, 1.1rem)',
@@ -123,7 +125,7 @@ export function IndexPage() {
           fontWeight: 400,
           color: '#cccccc',
           lineHeight: 1.4,
-          whiteSpace: 'nowrap' // Предотвращаем перенос строк
+          whiteSpace: 'nowrap'
         }}>
           Простое пространство для ваших мыслей
         </p>
@@ -172,6 +174,13 @@ export function IndexPage() {
             }
           }
 
+          /* Убираем возможность скролла */
+          body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+          }
+
           /* Адаптация для мобильных */
           @media (max-width: 768px) {
             button {
@@ -185,6 +194,12 @@ export function IndexPage() {
               transform: translateY(-2px);
               box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3) !important;
             }
+          }
+
+          /* Предотвращаем zoom на iOS */
+          @viewport {
+            width: device-width;
+            zoom: 1.0;
           }
         `}
       </style>
