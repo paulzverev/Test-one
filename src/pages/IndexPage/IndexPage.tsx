@@ -35,7 +35,7 @@ export function IndexPage() {
       textAlign: 'center',
       position: 'relative'
     }}>
-      
+
       {/* Анимированные частицы */}
       {particles.map(particle => (
         <div
@@ -65,7 +65,7 @@ export function IndexPage() {
         width: '100%',
         marginBottom: 'env(safe-area-inset-bottom, 20px)' // Безопасные отступы
       }}>
-        
+
         {/* Вертикальный логотип кофейного зернышка */}
         <div style={{
           display: 'flex',
@@ -132,26 +132,50 @@ export function IndexPage() {
         </p>
 
         {/* Кнопка создания заметки */}
-        <Link 
-        to="/create-note"
-        style={{
-          display: 'inline-block',
-          background: '#ffffff',
-          border: 'none',
-          padding: '16px 40px',
-          borderRadius: '25px',
-          color: '#000000',
-          fontSize: 'clamp(1rem, 4vw, 1.1rem)',
-          fontWeight: 600,
-          cursor: 'pointer',
-          transition: 'all 0.3s ease',
-          marginBottom: '25px',
-          boxShadow: '0 4px 15px rgba(255, 255, 255, 0.2)',
-          textDecoration: 'none'
-        }}
-      >
-        📝 Создать первую заметку
-      </Link>
+        <Link
+          to="/create-note"
+          style={{
+            display: 'inline-flex', // ← меняем на flex
+            alignItems: 'center',   // ← выравниваем по вертикали
+            justifyContent: 'center', // ← выравниваем по горизонтали
+            gap: '10px',            // ← отступ между иконкой и текстом
+            background: '#ffffff',
+            border: 'none',
+            padding: '16px 35px 16px 30px', // ← больше отступа слева
+            borderRadius: '25px',
+            color: '#000000',
+            fontSize: 'clamp(1rem, 4vw, 1.1rem)',
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            marginBottom: '25px',
+            boxShadow: '0 4px 15px rgba(255, 255, 255, 0.2)',
+            textDecoration: 'none',
+            lineHeight: '1'        // ← убираем лишние отступы у текста
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              flexShrink: 0,
+              marginBottom: '1px' // ← микро-коррекция выравнивания
+            }}
+          >
+            <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
+            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+            <path d="M3 15h6" />
+            <path d="M6 12v6" />
+          </svg>
+          Создать первую заметку
+        </Link>
 
         {/* Дополнительный текст */}
         <p style={{

@@ -29,7 +29,13 @@ export function CreateNotePage() {
             color: 'white',
             textDecoration: 'none',
             fontSize: '1.5rem',
-            marginRight: '15px'
+            marginRight: '15px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '30px',
+            height: '30px',
+            lineHeight: '1'
           }}
         >
           ←
@@ -37,7 +43,8 @@ export function CreateNotePage() {
         <h1 style={{
           margin: 0,
           fontSize: '1.5rem',
-          fontWeight: 600
+          fontWeight: 600,
+          lineHeight: '1'
         }}>
           Новая заметка
         </h1>
@@ -58,7 +65,8 @@ export function CreateNotePage() {
           fontSize: '1.1rem',
           resize: 'none',
           outline: 'none',
-          marginBottom: '20px'
+          marginBottom: '20px',
+          fontFamily: '"Inter", sans-serif'
         }}
         rows={10}
       />
@@ -67,7 +75,7 @@ export function CreateNotePage() {
       <button style={{
         background: '#ffffff',
         border: 'none',
-        padding: '16px 28px 16px 24px',
+        padding: '16px 35px 16px 30px',
         borderRadius: '25px',
         color: '#000000',
         fontSize: '1.1rem',
@@ -76,24 +84,41 @@ export function CreateNotePage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '12px'
+        gap: '10px',
+        lineHeight: '1',
+        marginBottom: '25px',
+        boxShadow: '0 4px 15px rgba(255, 255, 255, 0.2)',
+        transition: 'all 0.3s ease',
+        height: '52px'
       }}>
-        {/* Inline SVG */}
         <svg
-          width="24"
-          height="24"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#000000"
-          strokeWidth="2.5"
-          style={{ flexShrink: 0 }}
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            flexShrink: 0,
+            // УБРАЛ marginBottom - он опускал иконку!
+            position: 'relative',
+            top: '0.5px' // ← поднимаем иконку на полпикселя
+          }}
         >
-          <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-          <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
-          <path d="M3 12A9 3 0 0 0 21 12"></path>
+          <path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+          <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
+          <path d="M7 3v4a1 1 0 0 0 1 1h7" />
         </svg>
 
-        Сохранить заметку
+        <span style={{
+          position: 'relative',
+          top: '0.5px' // ← поднимаем текст тоже на полпикселя
+        }}>
+          Сохранить заметку
+        </span>
       </button>
 
     </div>
