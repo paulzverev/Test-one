@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ReactComponent as DatabaseIcon } from './icons/database.svg'
+import DatabaseIcon from './icons/database.svg';
 
 export function CreateNotePage() {
   const [noteText, setNoteText] = useState('');
@@ -68,28 +68,32 @@ export function CreateNotePage() {
       <button style={{
         background: '#ffffff',
         border: 'none',
-        padding: '16px 24px 16px 20px', // Больше отступов слева для иконки
+        padding: '16px 28px 16px 24px',
         borderRadius: '25px',
         color: '#000000',
         fontSize: '1.1rem',
         fontWeight: 600,
         cursor: 'pointer',
-        transition: 'all 0.3s ease',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '10px', // Отступ между иконкой и текстом
-        lineHeight: '1', // Убираем лишние отступы у текста
-        height: '48px' // Фиксированная высота для выравнивания
+        gap: '12px'
       }}>
-        <DatabaseIcon
-          style={{
-            width: '24px',
-            height: '24px',
-            fill: '#000000',
-            flexShrink: 0
-          }}
-        />
+        {/* Inline SVG */}
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000000"
+          strokeWidth="2.5"
+          style={{ flexShrink: 0 }}
+        >
+          <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+          <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
+          <path d="M3 12A9 3 0 0 0 21 12"></path>
+        </svg>
+
         Сохранить заметку
       </button>
 
