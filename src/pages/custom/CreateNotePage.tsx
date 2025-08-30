@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 export function CreateNotePage() {
   const [noteText, setNoteText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
+  const [placeholderOpacity, setPlaceholderOpacity] = useState(1);
+
+  const placeholders = [
+    "Начните писать вашу заметку...",
+    "Опишите свои мысли...",
+    "Что у вас на уме?",
+    "Запишите идею..."
+  ];
 
   useEffect(() => {
     // Задержка для плавного появления после монтирования компонента
@@ -12,6 +21,24 @@ export function CreateNotePage() {
     }, 50);
     
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Плавное исчезновение
+      setPlaceholderOpacity(0);
+      
+      setTimeout(() => {
+        // Смена текста
+        setCurrentPlaceholder((prev) => (prev + 1) % placeholders.length);
+        
+        // Плавное появление
+        setPlaceholderOpacity(1);
+      }, 500); // Задержка перед сменой текста
+      
+    }, 4000); // Общий цикл: 4 секунды
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -70,7 +97,7 @@ export function CreateNotePage() {
       <textarea
         value={noteText}
         onChange={(e) => setNoteText(e.target.value)}
-        placeholder="Начните писать вашу заметку..."
+        placeholder={placeholders[currentPlaceholder]}
         style={{
           flex: 1,
           background: 'transparent',
@@ -140,6 +167,17 @@ export function CreateNotePage() {
           Сохранить заметку
         </span>
       </button>
+
+      {/* Стили для анимированного placeholder */}
+      <style>
+        {`
+          textarea::placeholder {
+            color: #888;
+            opacity: ${placeholderOpacity};
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+        `}
+      </style>
 
     </div>
   );
