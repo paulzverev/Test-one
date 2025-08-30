@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import DatabaseIcon from './icons/database.svg';
 
 export function CreateNotePage() {
   const [noteText, setNoteText] = useState('');
