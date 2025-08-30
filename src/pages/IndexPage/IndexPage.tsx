@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export function IndexPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -127,11 +128,14 @@ export function IndexPage() {
           lineHeight: 1.4,
           whiteSpace: 'nowrap'
         }}>
-          Простое пространство для ваших мыслей
+          Простое пространство для ваших идей
         </p>
 
         {/* Кнопка создания заметки */}
-        <button style={{
+        <Link 
+        to="/create-note"
+        style={{
+          display: 'inline-block',
           background: '#ffffff',
           border: 'none',
           padding: '16px 40px',
@@ -142,10 +146,12 @@ export function IndexPage() {
           cursor: 'pointer',
           transition: 'all 0.3s ease',
           marginBottom: '25px',
-          boxShadow: '0 4px 15px rgba(255, 255, 255, 0.2)'
-        }}>
-          📝 Создать первую заметку
-        </button>
+          boxShadow: '0 4px 15px rgba(255, 255, 255, 0.2)',
+          textDecoration: 'none'
+        }}
+      >
+        📝 Создать первую заметку
+      </Link>
 
         {/* Дополнительный текст */}
         <p style={{
