@@ -18,7 +18,6 @@ export function CreateFirstNotePage() {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 50);
-
     return () => clearTimeout(timer);
   }, []);
 
@@ -30,15 +29,16 @@ export function CreateFirstNotePage() {
         setPlaceholderOpacity(1);
       }, 500);
     }, 4000);
-
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div style={{
-      minHeight: '100vh',
-      height: '100vh', // Фиксируем высоту
-      overflow: 'hidden', // Убираем прокрутку
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
       background: '#000000',
       fontFamily: '"Inter", sans-serif',
       color: 'white',
@@ -47,14 +47,17 @@ export function CreateFirstNotePage() {
       flexDirection: 'column',
       opacity: isVisible ? 1 : 0,
       transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-      transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+      transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+      boxSizing: 'border-box'
     }}>
 
-      {/* Шапка */}
+      {/* Шапка - фиксированная высота */}
       <div style={{
+        flexShrink: 0,
         display: 'flex',
         alignItems: 'center',
-        marginBottom: '30px',
+        marginBottom: '20px',
+        minHeight: '40px',
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
         transition: 'opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s'
@@ -98,39 +101,47 @@ export function CreateFirstNotePage() {
         </h1>
       </div>
 
-      {/* Поле ввода */}
-      <textarea
-        value={noteText}
-        onChange={(e) => setNoteText(e.target.value)}
-        placeholder={placeholders[currentPlaceholder]}
-        style={{
-          flex: 1,
-          background: 'transparent',
-          border: '1px solid #333',
-          borderRadius: '12px',
-          padding: '20px',
-          color: 'white',
-          fontSize: '1.1rem',
-          resize: 'none',
-          outline: 'none',
-          marginBottom: '20px',
-          fontFamily: '"Inter", sans-serif',
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
-          transition: 'opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s'
-        }}
-        rows={10}
-      />
-
-      {/* Контейнер для кнопки с адаптацией */}
+      {/* Поле ввода - занимает все доступное пространство */}
       <div style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 0,
+        marginBottom: '15px',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
+        transition: 'opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s'
+      }}>
+        <textarea
+          value={noteText}
+          onChange={(e) => setNoteText(e.target.value)}
+          placeholder={placeholders[currentPlaceholder]}
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'transparent',
+            border: '1px solid #333',
+            borderRadius: '12px',
+            padding: '20px',
+            color: 'white',
+            fontSize: '1.1rem',
+            resize: 'none',
+            outline: 'none',
+            fontFamily: '"Inter", sans-serif',
+            boxSizing: 'border-box'
+          }}
+        />
+      </div>
+
+      {/* Кнопка - фиксированная внизу */}
+      <div style={{
+        flexShrink: 0,
         display: 'flex',
         justifyContent: 'center',
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
         transition: 'opacity 0.5s ease-out 0.3s, transform 0.5s ease-out 0.3s'
       }}>
-        {/* Кнопка сохранения */}
         <button style={{
           background: '#ffffff',
           border: 'none',
@@ -145,7 +156,6 @@ export function CreateFirstNotePage() {
           justifyContent: 'center',
           gap: '10px',
           lineHeight: '1',
-          marginBottom: '25px',
           boxShadow: '0 4px 15px rgba(255, 255, 255, 0.2)',
           transition: 'all 0.3s ease',
           height: '52px',
@@ -161,7 +171,7 @@ export function CreateFirstNotePage() {
             stroke="currentColor"
             strokeWidth="2.2"
             strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeLinejoin='round'
             style={{
               flexShrink: 0,
               position: 'relative',
@@ -172,17 +182,12 @@ export function CreateFirstNotePage() {
             <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
             <path d="M7 3v4a1 1 0 0 0 1 1h7" />
           </svg>
-
-          <span style={{
-            position: 'relative',
-            top: '0.5px'
-          }}>
+          <span style={{ position: 'relative', top: '0.5px' }}>
             Сохранить заметку
           </span>
         </button>
       </div>
 
-      {/* Стили для анимированного placeholder и запрета прокрутки */}
       <style>
         {`
           textarea::placeholder {
@@ -190,40 +195,15 @@ export function CreateFirstNotePage() {
             opacity: ${placeholderOpacity};
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
           }
-
-          /* Запрет прокрутки для всей страницы */
-          body {
-            overflow: hidden;
+          body, html {
             margin: 0;
             padding: 0;
+            overflow: hidden;
+            height: 100%;
           }
-
-          /* Предотвращаем zoom на iOS */
           @viewport {
             width: device-width;
             zoom: 1.0;
-          }
-
-          /* Адаптация для горизонтального режима */
-          @media (max-width: 768px) and (orientation: landscape) {
-            textarea {
-              font-size: 1rem;
-              padding: 15px;
-            }
-            
-            button {
-              padding: 14px 30px 14px 25px;
-              font-size: 1rem;
-              height: 48px;
-            }
-          }
-
-          /* Адаптация для очень широких экранов */
-          @media (min-width: 1024px) {
-            div[style*="justify-content: center"] {
-              max-width: 500px;
-              margin: 0 auto;
-            }
           }
         `}
       </style>
