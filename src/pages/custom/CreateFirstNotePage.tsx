@@ -56,11 +56,13 @@ export function CreateFirstNotePage() {
         flexShrink: 0,
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center', // ← центрируем по горизонтали
         marginBottom: '20px',
         minHeight: '40px',
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-        transition: 'opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s'
+        transition: 'opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s',
+        position: 'relative' // ← для позиционирования стрелки
       }}>
         <Link
           to="/"
@@ -68,13 +70,14 @@ export function CreateFirstNotePage() {
             color: 'white',
             textDecoration: 'none',
             fontSize: '1.5rem',
-            marginRight: '15px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             width: '30px',
             height: '30px',
-            lineHeight: '1'
+            lineHeight: '1',
+            position: 'absolute', // ← абсолютное позиционирование
+            left: '0' // ← прижимаем к левому краю
           }}
         >
           <svg
@@ -95,7 +98,8 @@ export function CreateFirstNotePage() {
           margin: 0,
           fontSize: '1.5rem',
           fontWeight: 600,
-          lineHeight: '1'
+          lineHeight: '1',
+          textAlign: 'center' // ← центрируем текст
         }}>
           Первая заметка
         </h1>
